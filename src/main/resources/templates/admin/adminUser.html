@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 관리자 - 회원 관리 </title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminUser.css}">
+    <script th:src="@{/js/admin/adminUser.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 네비게이션 -->
+        <div th:replace="fragments/commons :: nav"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <h1 class="sectionHeader">화원 관리</h1>
+            <div class="tableWrap">
+                <table>
+                    <!-- 정보 -->
+                    <tr class="info">
+                        <td style="width: 5%;"> 순서 </td>
+                        <td style="width: 25%;"> ID </td>
+                        <td style="width: 25%;"> 부스명 </td>
+                        <td style="width: 25%;"> 이메일 </td>
+                        <td style="width: 10%;"> 부스 비밀번호 </td>
+                        <td style="width: 10%;"> 기타 </td>
+                    </tr>
+
+                    <!-- 회원 목록 반복 출력 -->
+                    <tr th:each="user, stat : ${userList}">
+                        <td th:text="${stat.count}"></td>
+                        <td th:text="${user.userId}"></td>
+                        <td th:text="${user.userBoothName} ?: '없음'"></td>
+                        <td th:text="${user.userEmail}"></td>
+                        <td th:text="${user.userPhone} ?: '없음'"></td>
+                        <td>
+                            <button class="btn registerBtn"
+                                    th:if="${user.role != 'BOOTH'}"
+                                    th:data-id="${user.userId}"
+                                    th:text="'부스 회원 등록'">
+                            </button>
+                            <button class="btn"
+                                    th:if="${user.role == 'BOOTH'}"
+                                    style="background-color: #666; cursor: not-allowed;"
+                                    disabled>
+                                부스 회원
+                            </button>
+                            <button class="btn resetBtn"
+                                    th:data-id="${user.userId}">
+                                비밀번호 초기화
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+/* 공통 서식 */
+section
+{
+    width: 1280px;
+    margin: 0 auto;
+    padding: 50px 0 0 0 !important;
+
+    display: flex;
+    justify-content: space-between;
+}
+section * { color: #333; }
+
+
+
+/* 게시판 */
+.notForm
+{
+    width: 400px;
+    margin-top: 50px;
+}
+.listName
+{
+    width: 100%;
+    height: 30px;
+
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 30px;
+}
+
+
+
+/* 정보 */
+.listWrap
+{
+    width: 100%;
+    height: 600px;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 20px;
+
+    background-color: #f0f0f0;
+}
+.now
+{
+    width: 100%;
+    height: 40px;
+
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 40px;
+
+    position: relative;
+}
+.sub
+{
+    width: 100px;
+    height: 30px;
+    border-radius: 12px;
+
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+
+    border: none;
+    background-color: #333;
+
+    font-size: 16px;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+}
+.sub:hover { background-color: #ccc; }
+
+/* 리스트 */
+.list
+{
+    width: 100%;
+    height: 550px;
+    padding-bottom: 10px;
+
+    overflow-y: auto;
+    list-style: none;
+}
+.list li
+{
+    border-bottom: 1px solid #333;
+    display: flex;
+}
+.infoLi { border-bottom: 2px solid #333; }
+
+/* 요소 */
+.infoP
+{
+    width: 50%;
+    height: 30px;
+
+    font-size: 16px;
+    text-align: center;
+    line-height: 30px;
+}
+.infoP.num { width: 10%; }
+.infoP.con
+{
+    width: 90%;
+    text-align: left;
+}
+label
+{
+    width: 100%;
+    padding: 0 10px;
+
+    display: flex;
+    gap: 10px;
+
+    cursor: pointer;
+}

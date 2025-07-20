@@ -1,0 +1,526 @@
+/* 전체 서식 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: 'Pretendard Variable', sans-serif;
+    font-weight: 400;
+}
+html, body { height: 100%; }
+body
+{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.container
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+section
+{
+    flex: 1;
+    width: 100%;
+    padding-top: 160px;
+}
+a { all: unset; display: inline-block; }
+
+
+
+/* 헤더 */
+header
+{
+    width: 100%;
+    height: auto;
+    padding: 10px 0 15px 0;
+
+    background-color: white;
+
+    position: fixed;
+    top: 0;
+    
+    z-index: 999;
+}
+.headerContainer
+{
+    width: 1280px;
+    height: 100%;
+    margin: auto;
+}
+
+/* 상단 */
+.topHeader
+{
+    width: 100%;
+    height: 15px;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 11px;
+    line-height: 15px;
+    color: #999999;
+}
+.session
+{
+    width: auto;
+    cursor: pointer;
+}
+.session:hover { color:#428cd2; }
+
+/* 하단 */
+.bottomHeader
+{
+    width: 100%;
+    height: 135px;
+
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.headerMenuWarp
+{
+    width: 930px;
+    height: 100%;
+}
+.logo { width: 187px; height: 135px; }
+
+/* 파이낙사 */
+.phainaxaWarp
+{
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end;
+}
+.phainaxa { height: 85px; }
+
+/* 메뉴 리스트 */
+.headerMenuList
+{
+    width: 100%;
+    height: 50px;
+    border-radius: 100px;
+
+    background-color: #428cd2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.headerMenuItem
+{
+    width: 145px;
+    height: 100%;
+
+    font-size: 18px;
+    text-align: center;
+    line-height: 50px;
+    color: white;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+}
+.headerMenuItem:hover { background-color: #69e8bd; }
+
+
+
+/* 푸터 */
+footer
+{
+    width: 100%;
+    height: auto;
+
+    background-color: white;
+
+    font-size: 14px;
+    color: #333;
+}
+.footerContainer
+{
+    width: 1280px;
+    margin: auto;
+
+    position: relative;
+}
+
+/* 푸터 상단 */
+.footerTop
+{
+    width: 100%;
+
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.onlyTitle
+{
+    height: 50px;
+    margin: auto;
+
+    font-weight: bold;
+    line-height: 50px;
+}
+.snsLinkList
+{
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.snsLink
+{
+    width: 35px;
+    height: 35px;
+    border-radius: 12px;
+
+    background-size: cover;
+    background-position: center;
+
+    cursor: pointer;
+}
+
+/* 푸터 하단 */
+.footerBottom
+{
+    width: 1280px;
+    padding: 20px 0;
+    margin: auto;
+}
+.siteInfo { line-height: 20px; }
+
+
+
+/* 관리자 */
+nav
+{
+    width: 100%;
+    height: 50px;
+
+    position: fixed;
+    top: 0;
+
+    background-color: #333;
+}
+.navContainer
+{
+    width: 1280px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+}
+.navMenu
+{
+    width: auto;
+    height: 100%;
+
+    font-size: 20px;
+    line-height: 50px;
+    color: white;
+
+    cursor: pointer;
+}
+.navMenu:hover
+{
+    font-weight: bold;
+    color: #428cd2;
+}
+
+
+
+/* 토스트 */
+.toastWrap
+{
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
+
+    z-index: 9999;
+}
+.toastWrap.show
+{
+    opacity: 1;
+    visibility: visible;
+}
+.toast
+{
+    width: 400px;
+    padding: 10px 20px;
+    border-radius: 8px;
+
+    background-color: #333;
+
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+
+    position: relative;
+
+    z-index: 9999;
+}
+.toastBtn
+{
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+
+    border: none;
+    background: none;
+
+    font-size: 20px;
+    text-align: center;
+    line-height: 25px;
+    color: white;
+
+    cursor: pointer;
+}
+.toastBtn:hover { background-color: #666; }
+
+
+
+/*== 모바일 ==*/
+@media(max-width: 768px)
+{
+    /* 숨김 요소 */
+    .topHeader, .snsLinkList, .phainaxaWarp { display: none; }
+
+    /* 화면 전체 서식 */
+    section { padding: 0; }
+
+    /* 헤더 */
+    header { position: static; }
+    .headerContainer, .headerMenuWarp { width: 100%; }
+    .bottomHeader
+    {
+        height: auto;
+
+        flex-direction: column;
+        gap: 5px;
+    }
+    .logo { margin-top: 10px; }
+    .headerMenuList
+    {
+        width: 100%;
+        height: 30px;
+        border-radius: 0;
+    }
+    .headerMenuItem
+    {
+        width: 15%;
+        height: 30px;
+
+        font-size: 12px;
+        line-height: 30px;
+    }
+
+    /* 햄버거 메뉴 */
+    .hamBtn
+    {
+        display: block !important;
+
+        width: 50px;
+        height: 50px;
+
+        font-size: 30px;
+        color: black !important;
+
+        border: none;
+        background: none;
+
+        position: fixed;
+        top: 10px;
+        right: 10px;
+
+        z-index: 998;
+    }
+
+    /* 햄버거 메뉴 콘텐츠 */
+    .hamContent
+    {
+        display: block !important;
+        
+        width: 100%;
+        height: 100%;
+
+        position: fixed;
+        top: 0;
+        left: 100%;
+
+        background-color: white;
+
+        z-index: 999;
+        transition: left 0.5s ease;
+    }
+    .hamContent.show { left: 0; }
+
+    /* 상단 */
+    .topHam
+    {
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 5px;
+    }
+    .userBtn
+    {
+        width: 80px;
+        height: 30px;
+
+        background-color: #999;
+
+        font-size: 16px;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+    }
+    .hamCloseBtn
+    {
+        width: 50px;
+        height: 50px;
+
+        font-size: 30px;
+
+        border: none;
+        background: none;
+    }
+
+    /* 하단 */
+    .bottomHam
+    {
+        width: 95%;
+        height: auto;
+        margin: auto;
+        margin-top: 20px;
+
+        position: relative;
+
+        font-size: 16px;
+        font-weight: 300;
+    }
+
+    /* 링크 */
+    .bottomHam .snsLinkList
+    {
+        display: flex;
+
+        height: 30px;
+    }
+    .snsLink
+    {
+        width: 30px;
+        height: 30px;
+        border-radius: 0;
+    }
+    
+
+    /* 페이지 리스트 */
+    .hamPageList
+    {
+        width: 100%;
+        height: auto;
+        margin: 5px 0;
+
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .hamPageItem
+    {
+        width: 100%;
+        height: 50px;
+        padding-left: 10px;
+        box-sizing: border-box;
+
+        font-size: 16px;
+        line-height: 50px;
+    }
+    
+    /* 파이낙사 */
+    .phainaxaMobWrap
+    {
+        width: 100%;
+        height: auto;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .phainaxaMob { width: 40%; }
+
+
+    /* 푸터 */
+    .onlyTitle, .siteInfo { font-size: 13px; }
+    .footerContainer { width: 90%; }
+    .footerBottom { width: 90%; }
+
+    /* 위로 가기 */
+    .scrollTop
+    {
+        display: block !important;
+
+        width: 40px;
+        height: 40px;
+
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+
+        border: 1px solid #428cd2;
+        background-color: rgba(66, 140, 210, 0.1);
+
+        font-size: 24px;
+        color: #428cd2;
+
+        cursor: pointer;
+
+        z-index: 998;
+    }
+
+    /* 토스트 */
+    .toastWrap
+    {
+        width: 100%;
+        
+        bottom: 20px;
+        left: 0;
+        transform: none;
+
+        display: flex;
+        justify-content: center;
+    }
+    .toast
+    {
+        width: 90%;
+        font-size: 14px;
+    }
+}

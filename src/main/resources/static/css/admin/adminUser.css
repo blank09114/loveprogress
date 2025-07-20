@@ -1,0 +1,77 @@
+/* 공통 서식 */
+section
+{
+    width: 1280px;
+    margin: 0 auto;
+    padding: 50px 0 0 0 !important;
+}
+section * { color: #333; }
+.sectionHeader
+{
+    width: 100%;
+    height: 40px;
+    margin-top: 50px;
+
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+    line-height: 40px;
+}
+
+
+
+/* 회원 목록 */
+.tableWrap
+{
+    width: 100%;
+    height: 600px;
+    margin-top: 10px;
+
+    overflow-y: auto;
+}
+
+/* 테이블 */
+table
+{
+    width: 100%;
+    border-collapse: collapse;
+}
+tr
+{
+    width: 100%;
+
+    border-bottom: 1px solid #333;
+}
+.info { height: 30px; }
+
+/* 셀 */
+td
+{
+    height: 65px;
+
+    font-size: 16px;
+    text-align: center;
+}
+.info td { height: 30px; line-height: 30px; }
+
+/* 버튼 */
+.btn
+{
+    width: 100px;
+    height: 25px;
+    border-radius: 8px;
+
+    border: none;
+    background-color: #333;
+
+    font-size: 14px;
+    text-align: center;
+    line-height: 25px;
+    color: white;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+}
+.btn:hover { background-color: #ccc; }
+.btn:last-child { margin-top: 5px; }

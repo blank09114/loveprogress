@@ -1,0 +1,141 @@
+/* 섹션 */
+section
+{
+    width: 1280px;
+    margin: auto;
+}
+section * { color: #333; }
+.sectionHeader
+{
+    width: 100%;
+    height: 40px;
+    margin-top: 50px;
+
+    font-size: 27px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 40px;
+}
+
+
+
+/* 글 목록 */
+table
+{
+    width: 100%;
+    height: auto;
+    margin: 30px 0 10px 0;
+    
+    border-top: 2px solid #333;
+    border-collapse: collapse;
+}
+tr
+{
+    height: 40px;
+
+    border-bottom: 1px solid #ccc;
+
+    font-size: 18px;
+    text-align: center;
+    line-height: 40px;
+    color: #333;
+}
+.td-no { width: 5%; }
+.td-author, .td-time { width: 10%; }
+.td-time { color: #ccc; }
+.td-left { text-align: left; }
+.not { background-color: #f9f9f9; }
+.postLink
+{
+    color: inherit;
+    text-decoration: none;
+}
+.postLink:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+
+/* 하단 메뉴 */
+.bottomMenu
+{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+.pages
+{
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    list-style: none;
+}
+.pages li
+{
+    width: 30px;
+    height: 18px;
+
+    border-right: 1px solid #333;
+
+    font-size: 18px;
+    text-align: center;
+    line-height: 18px;
+    color: #333;
+
+    cursor: pointer;
+}
+.pages li:last-child { border: none; }
+.writeBtn
+{
+    width: 80px;
+    height: 30px;
+    border-radius: 20px;
+
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+
+    background-color: #333;
+
+    font-size: 16px;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+
+    cursor: pointer;
+    
+    transition: background-color 0.3s ease;
+}
+.writeBtn:hover
+{
+    background-color: #ccc;
+    color: #333;
+}
+
+
+
+/*== 모바일 ==*/
+@media(max-width: 768px)
+{
+    section { width: 90%; }
+    .tableWrap
+    {
+        width: 100%;
+        overflow-x: auto;
+    }
+    .tableWrap table { width: 600px; }
+    .td-no { width: 10%; }
+    .td-author, .td-time { width: 20%; }
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="packages.loveprogress.mapper.QnaMapper">
+    <!-- 질문 등록 -->
+    <insert id="insertQna" parameterType="packages.loveprogress.dto.QnaDTO">
+        INSERT INTO qna_tbl
+        (
+            <if test="userId != null"> user_id, </if>
+            qna_user_name,
+            <if test="qnaPw != null"> qna_pw, </if>
+            qna_img,
+            qna_content,
+            qna_secret
+        )
+        VALUES
+        (
+            <if test="userId != null">#{userId},</if>
+            #{qnaUserName},
+            <if test="qnaPw != null">#{qnaPw},</if>
+            #{qnaImg},
+            #{qnaContent},
+            #{qnaSecret}
+        )
+    </insert>
+
+    <!-- 질문 조회 -->
+    <select id="selectAllQna" resultType="packages.loveprogress.dto.QnaDTO">
+        SELECT
+            qna_id AS qnaId,
+            user_id AS userId,
+            qna_user_name AS qnaUserName,
+            qna_pw AS qnaPw,
+            qna_img AS qnaImg,
+            qna_content AS qnaContent,
+            qna_secret AS qnaSecret,
+            answer_content AS answerContent
+        FROM qna_tbl
+        ORDER BY qna_id DESC
+    </select>
+
+    <!-- 비회원 비밀글 열람 -->
+    <select id="getQnaById" resultType="packages.loveprogress.dto.QnaDTO">
+        SELECT qna_id AS qnaId,
+            qna_pw AS qnaPw,
+            qna_content AS qnaContent,
+            answer_content AS answerContent
+        FROM qna_tbl
+        WHERE qna_id = #{qnaId}
+    </select>
+</mapper>

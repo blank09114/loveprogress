@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 관리자 - 게시판 </title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminBoard.css}">
+</head>
+<body>
+    <div class="container">
+        <!-- 네비게이션 -->
+        <div th:replace="fragments/commons :: nav"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <!-- 인포 -->
+            <form id="info" class="notForm">
+                <h2 class="listName">인포</h2>
+                <div class="listWrap">
+                    <p class="now">
+                        현 공지: <span th:text="${infoNoticeId != null ? infoNoticeId : '없음'}"></span>
+                        <button class="sub" type="button" onclick="subNotice(this)">공지 등록</button>
+                    </p>
+                    <ul class="list">
+                        <li class="infoLi">
+                            <p class="infoP num" style="width: 74px;">게시글 ID</p>
+                            <p class="infoP con" style="width: 286px; text-align: center;">제목</p>
+                        </li>
+                        <li th:each="post : ${infoPosts}">
+                            <label>
+                                <input type="radio" name="info" th:value="${post.postId}">
+                                <p class="infoP num" th:text="${post.postId}">1</p>
+                                <p class="infoP con" th:text="${post.postTitle}">제목</p>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+
+            <!-- 이벤트 -->
+            <form id="eve" class="notForm">
+                <h2 class="listName">이벤트</h2>
+                <div class="listWrap">
+                    <p class="now">
+                        현 공지: <span th:text="${eventNoticeId != null ? eventNoticeId : '없음'}"></span>
+                        <button class="sub" type="button" onclick="subNotice(this)">공지 등록</button>
+                    </p>
+                    <ul class="list">
+                        <li class="infoLi">
+                            <p class="infoP num" style="width: 74px;">번호</p>
+                            <p class="infoP con" style="width: 286px; text-align: center;">제목</p>
+                        </li>
+                        <li th:each="post : ${eventPosts}">
+                            <label>
+                                <input type="radio" name="eve" th:value="${post.postId}">
+                                <p class="infoP num" th:text="${post.postId}">1</p>
+                                <p class="infoP con" th:text="${post.postTitle}">제목</p>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+
+            <!-- 부스 -->
+            <form id="booth" class="notForm">
+                <h2 class="listName">부스</h2>
+                <div class="listWrap">
+                    <p class="now">
+                        현 공지: <span th:text="${boothNoticeId != null ? boothNoticeId : '없음'}"></span>
+                        <button class="sub" type="button" onclick="subNotice(this)">공지 등록</button>
+                    </p>
+                    <ul class="list">
+                        <li class="infoLi">
+                            <p class="infoP num" style="width: 74px;">번호</p>
+                            <p class="infoP con" style="width: 286px; text-align: center;">제목</p>
+                        </li>
+                        <li th:each="post : ${boothPosts}">
+                            <label>
+                                <input type="radio" name="booth" th:value="${post.postId}">
+                                <p class="infoP num" th:text="${post.postId}">1</p>
+                                <p class="infoP con" th:text="${post.postTitle}">제목</p>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        // 공지 등록
+        function subNotice(btn)
+        {
+            const form = btn.closest("form");
+            const checked = form.querySelector("input[type='radio']:checked");
+
+            if (!checked)
+            {
+                alert("선택된 게시글이 없습니다.");
+                return;
+            }
+
+            // 폼 타입 가져오기 (info, eve, booth)
+            const type = form.id.toUpperCase(); // ex: "INFO"
+            const postId = checked.value;
+
+            // POST 요청 보내기 (form 태그 안 써도 됨)
+            const formData = new FormData();
+            formData.append("type", type);
+            formData.append("postId", postId);
+
+            fetch("/admin/notice",
+            {
+                method: "POST",
+                body: formData
+            })
+            .then(res =>
+            {
+                if (res.redirected) { window.location.href = res.url; }
+                else { alert("공지 등록 실패"); }
+            })
+            .catch(err =>
+            {
+                console.error(err);
+                alert("에러 발생");
+            });
+        }
+    </script>
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

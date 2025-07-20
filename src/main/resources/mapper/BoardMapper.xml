@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="packages.loveprogress.mapper.BoardMapper">
+    <!-- 게시글 목록 조회 -->
+    <select id="selectPostList" resultType="packages.loveprogress.dto.PostDTO">
+        SELECT
+            p.post_id AS postId,
+            p.post_type AS postType,
+            p.post_title AS postTitle,
+            p.user_id AS userId,
+            p.post_secret AS postSecret,
+            p.post_date AS postDate,
+            u.user_role AS userRole
+        FROM post_tbl p
+        JOIN user_tbl u ON p.user_id = u.user_id
+        WHERE p.post_type = #{postType}
+        ORDER BY p.post_date DESC
+    </select>
+
+    <!-- 공지글 조회 -->
+    <select id="selectNoticePost" resultType="packages.loveprogress.dto.PostDTO">
+        SELECT
+            p.post_id AS postId,
+            p.post_type AS postType,
+            p.post_title AS postTitle,
+            p.user_id AS userId,
+            p.post_secret AS postSecret,
+            p.post_date AS postDate,
+            u.user_role AS userRole
+        FROM notice_tbl n
+        JOIN post_tbl p ON n.post_id = p.post_id
+        JOIN user_tbl u ON p.user_id = u.user_id
+        WHERE n.post_type = #{postType}
+    </select>
+
+    <!-- 게시글 상세 조회 -->
+    <select id="selectPostDetail" resultType="packages.loveprogress.dto.PostDTO">
+        SELECT
+            p.post_id AS postId,
+            p.post_type AS postType,
+            p.post_title AS postTitle,
+            p.post_content AS postContent,
+            p.user_id AS userId,
+            p.post_secret AS postSecret,
+            p.post_date AS postDate,
+            u.user_role AS userRole,
+            u.user_booth_name AS userBoothName
+        FROM post_tbl p
+        JOIN user_tbl u ON p.user_id = u.user_id
+        WHERE p.post_type = #{postType}
+        AND p.post_id = #{postId}
+    </select>
+
+    <!-- 이전글 -->
+    <select id="selectPrevPost" resultType="packages.loveprogress.dto.PostDTO">
+        SELECT
+            post_id AS postId,
+            post_title AS postTitle,
+            user_id AS userId,
+            post_date AS postDate
+            FROM post_tbl
+        WHERE post_type = #{postType}
+        AND post_id &lt; #{postId}
+        ORDER BY post_id DESC
+        LIMIT 1
+    </select>
+
+    <!-- 다음글 -->
+    <select id="selectNextPost" resultType="packages.loveprogress.dto.PostDTO">
+        SELECT
+            post_id AS postId,
+            post_title AS postTitle,
+            user_id AS userId,
+            post_date AS postDate
+        FROM post_tbl
+        WHERE post_type = #{postType}
+        AND post_id &gt; #{postId}
+        ORDER BY post_id ASC
+        LIMIT 1
+    </select>
+
+    <!-- 게시글 작성 -->
+    <insert id="insertPost" parameterType="packages.loveprogress.dto.PostDTO" useGeneratedKeys="true" keyProperty="postId">
+        INSERT INTO post_tbl
+        (
+            post_type,
+            post_title,
+            post_content,
+            user_id,
+            post_secret
+        )
+        VALUES
+        (
+            #{postType},
+            #{postTitle},
+            #{postContent},
+            #{userId},
+            #{postSecret}
+        );
+    </insert>
+
+    <!-- 게시글 수정 -->
+    <update id="updatePost" parameterType="packages.loveprogress.dto.PostDTO">
+        UPDATE post_tbl
+        SET
+            post_title = #{postTitle},
+            post_content = #{postContent},
+            post_secret = #{postSecret}
+        WHERE
+            post_id = #{postId}
+            AND post_type = #{postType}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deletePost">
+        DELETE FROM post_tbl
+        WHERE post_type = #{postType}
+        AND post_id = #{postId}
+    </delete>
+
+    <!-- 유저 role 조회 -->
+    <select id="selectUserRole" resultType="string">
+        SELECT user_role FROM user_tbl
+        WHERE user_id = #{userId}
+    </select>
+</mapper>

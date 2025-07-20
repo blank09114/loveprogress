@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 관리자 - 부스 </title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminBooth.css}">
+    <script th:src="@{/js/admin/adminBooth.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 네비게이션 -->
+        <div th:replace="fragments/commons :: nav"></div>
+
+        <section>
+            <!-- 목록 -->
+            <h2 class="contentHeader" style="margin: 50px 0 20px 0;">부스 목록</h2>
+            <div class="boothListWrap">
+                <table class="boothList">
+                    <!-- 헤더 -->
+                    <tr class="info">
+                        <td style="width: 5%;"> 순번 </td>
+                        <td style="width: 17%;"> 이름 </td>
+                        <td style="width: 17%;"> 부스컷 </td>
+                        <td style="width: 17%;"> 롤오버 </td>
+                        <td style="width: 17%;"> 참여자 </td>
+                        <td style="width: 17%;"> 키워드 </td>
+                        <td style="width: 5%;"> 비밀번호 </td>
+                        <td style="width: 5%;"> 수정/삭제 </td>
+                    </tr>
+
+                    <!-- 부스 -->
+                    <tr th:each="booth, iterStat : ${boothList}"
+                        th:attr="
+                                data-id=${booth.boothId},
+                                data-owner=${booth.owner},
+                                data-owner-link=${booth.ownerLink},
+                                data-user1=${booth.user1},
+                                data-user1-link=${booth.user1Link},
+                                data-user2=${booth.user2},
+                                data-user2-link=${booth.user2Link},
+                                data-user3=${booth.user3},
+                                data-user3-link=${booth.user3Link}">
+                    <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${booth.name}">부스 이름</td>
+
+                        <td>
+                            <img th:src="@{${booth.img}}" alt="이미지">
+                        </td>
+                        <td th:if="${booth.hoverImg}">
+                            <img th:src="@{${booth.hoverImg}}" alt="이미지">
+                        </td>
+                        <td th:unless="${booth.hoverImg}">
+                            <span style="color: #333;">없음</span>
+                        </td>
+
+                        <td>
+                            <!-- 대표자 -->
+                            <span th:if="${booth.ownerLink != null}" style="color: #428cd2;" th:text="${booth.owner}">대표자</span>
+                            <span th:if="${booth.ownerLink == null}" th:text="${booth.owner}">대표자</span>
+
+                            <!-- 참가자 1 -->
+                            <span th:if="${booth.user1}">
+                                <span th:if="${booth.user1Link != null}" style="color: #428cd2;">, <span th:text="${booth.user1}">참가자1</span></span>
+                                <span th:if="${booth.user1Link == null}">, <span th:text="${booth.user1}">참가자1</span></span>
+                            </span>
+
+                            <!-- 참가자 2 -->
+                            <span th:if="${booth.user2}">
+                                <span th:if="${booth.user2Link != null}" style="color: #428cd2;">, <span th:text="${booth.user2}">참가자2</span></span>
+                                <span th:if="${booth.user2Link == null}">, <span th:text="${booth.user2}">참가자2</span></span>
+                            </span>
+
+                            <!-- 참가자 3 -->
+                            <span th:if="${booth.user3}">
+                                <span th:if="${booth.user3Link != null}" style="color: #428cd2;">, <span th:text="${booth.user3}">참가자3</span></span>
+                                <span th:if="${booth.user3Link == null}">, <span th:text="${booth.user3}">참가자3</span></span>
+                            </span>
+                        </td>
+
+
+                        <td>
+                            <span th:if="${booth.tag1}" th:text="${booth.tag1}">태그1</span>
+                            <span th:if="${booth.tag2}">, <span th:text="${booth.tag2}">태그2</span></span>
+                            <span th:if="${booth.tag3}">, <span th:text="${booth.tag3}">태그3</span></span>
+                            <span th:if="${booth.tag4}">, <span th:text="${booth.tag4}">태그4</span></span>
+                            <span th:if="${booth.tag5}">, <span th:text="${booth.tag5}">태그5</span></span>
+                            <span th:if="${booth.tag6}">, <span th:text="${booth.tag6}">태그6</span></span>
+                        </td>
+
+                        <td th:text="${booth.pw}">****</td>
+
+                        <td>
+                            <button class="del" onclick="editBooth(this)">수정</button>
+                            <button class="del" onclick="deleteBooth(this)">삭제</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 등록 -->
+            <form id="subBooth">
+                <h2 class="contentHeader">부스 등록</h2>
+
+                <!-- 1행 -->
+                <div class="inputWrapRow">
+                    <!-- 이름 -->
+                    <div class="inputWrap">
+                        <p> 이름 </p>
+                        <input type="text" placeholder="부스 이름" id="name">
+                    </div>
+
+                    <!-- 비밀번호 -->
+                    <div class="inputWrap">
+                        <p> 비밀번호 </p>
+                        <input type="text" placeholder="전화번호 뒤 4자리" id="pw">
+                    </div>
+                </div>
+
+                <!-- 2행 -->
+                <div class="inputWrapRow">
+                    <div class="inputWrap">
+                        <p> 부스컷 </p>
+                        <input type="file" id="sumImg" accept="image/*">
+                    </div>
+
+                    <!-- 롤오버 -->
+                    <div class="inputWrap">
+                        <p> 롤오버 </p>
+                        <input type="file" id="hoverImg" accept="image/*">
+                    </div>
+                </div>
+
+                <!-- 3행 -->
+                <div class="inputWrapRow">
+                    <!-- 일반/성인 -->
+                    <div class="inputWrap">
+                        <p> 일반/성인 </p>
+                        <label> <input type="radio" name="tag"> 일반 </label>
+                        <label> <input type="radio" name="tag"> 성인 </label>
+                    </div>
+
+                    <!-- 키워드 -->
+                    <div class="inputWrap">
+                        <p> 기타 키워드 </p>
+                        <label> <input type="checkbox" name="keyword"> 그림 회지 </label>
+                        <label> <input type="checkbox" name="keyword"> 글 회지 </label>
+                        <label> <input type="checkbox" name="keyword"> 팬시 굿즈 </label>
+                        <label> <input type="checkbox" name="keyword"> 수공예품 </label>
+                        <label> <input type="checkbox" name="keyword"> 무료나눔 </label>
+                    </div>
+                </div>
+
+                <!-- 4행 -->
+                <div class="inputWrapRow">
+                    <!-- 참가자 -->
+                    <div class="inputWrap">
+                        <p> 대표자 </p>
+                        <input type="text" placeholder="닉네임" id="owner">
+                        <input type="text" placeholder="SNS 링크">
+                    </div>
+
+                    <!-- 참가자 -->
+                    <div class="inputWrap">
+                        <p> 참가자1 </p>
+                        <input type="text" placeholder="닉네임" id="user1">
+                        <input type="text" placeholder="SNS 링크" id="user1Link">
+                    </div>
+                </div>
+
+                <!-- 5행 -->
+                <div class="inputWrapRow">
+                    <!-- 참가자 -->
+                    <div class="inputWrap">
+                        <p> 참가자2 </p>
+                        <input type="text" placeholder="닉네임" id="user2">
+                        <input type="text" placeholder="SNS 링크" id="user2Link">
+                    </div>
+
+                    <!-- 참가자 -->
+                    <div class="inputWrap">
+                        <p> 참가자3 </p>
+                        <input type="text" placeholder="닉네임" id="user3">
+                        <input type="text" placeholder="SNS 링크" id="user3Link">
+                    </div>
+                </div>
+
+                <!-- 6행 -->
+                <div class="inputWrapRow">
+                    <button type="button" class="sub" onclick="submitBooth()">등록하기</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

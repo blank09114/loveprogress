@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 사랑의 진도 - QnA </title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/ect/qna.css}">
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div th:replace="fragments/commons :: header"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <!-- 섹션 헤더 -->
+            <h1 class="sectionTitle">QnA</h1>
+
+            <!-- QnA 작성 -->
+            <form id="regQna">
+                <!-- 좌측 -->
+                <div class="form left">
+                    <!-- 폼 메뉴 -->
+                    <div class="formMenu">
+                        <!-- 좌측 -->
+                        <div class="formMenuLeft">
+                            <!-- 이름 -->
+                            <p class="formMenuItem">이름</p>
+                            <input type="text" id="nickname">
+
+                            <!-- 비밀번호 -->
+                            <div th:if="${loginUser == null}" style="display: flex;">
+                                <p class="formMenuItem" style="margin-left: 20px;">비밀번호</p>
+                                <input type="password" id="pw">
+                            </div>
+                        </div>
+
+                        <!-- 우측 -->
+                        <div class="formMenuRight">
+                            <!-- 비밀글 체크 -->
+                            <label class="secret"> <input type="checkbox"> 비밀글 </label>
+                            <!-- 작성하기 -->
+                            <button type="button" class="formMenuItem" onclick="submitQna()">작성하기</button>
+                        </div>
+                    </div>
+
+                    <!-- 작성 폼 -->
+                    <textarea id="regQnaContent" placeholder="궁금한 점을 질문으로 남겨보세요. 등록한 질문은 수정하거나 삭제할 수 없습니다."></textarea>
+                </div>
+
+                <!-- 우측 -->
+                <div class="form right">
+                    <!-- 선택 -->
+                    <div class="selectWrap">
+                        <select id="profile" onchange="changeImg(this)">
+                            <option value="1파이논">파이논</option>
+                            <option value="2용사님">용사님</option>
+                            <option value="3■■■■■">■■■■■</option>
+                            <option value="4아낙사">아낙사</option>
+                            <option value="5작가님">작가님</option>
+                            <option value="6드로마스팬">드로마스팬</option>
+                            <option value="7부스를훔치는자">부스를훔치는자</option>
+                        </select>
+                        <div class="arrow">▼</div>
+                    </div>
+
+                    <!-- 캐릭터 -->
+                    <div class="chara" th:style="|background-image: url('@{/img/QnA/1파이논.jpg}');|"></div>
+                </div>
+            </form>
+
+            <!-- 구분선 -->
+            <div class="line">◆　◆　◆</div>
+
+            <!-- 내가 작성한 질문 보기 -->
+            <div class="my" th:if="${loginUser != null}"> <label> <input type="checkbox" id="filterMine"> 내가 작성한 질문 보기 </label> </div>
+
+            <!-- QnA 목록 -->
+            <div class="qnaList" id="qnaList"></div>
+
+            <!-- 페이지네이션 -->
+            <ul class="pages"></ul>
+        </section>
+
+        <!-- 푸터 -->
+        <div th:replace="fragments/commons :: footer"></div>
+
+        <!-- 토스트 -->
+        <div th:replace="fragments/commons :: toastItem"></div>
+    </div>
+
+    <script th:inline="javascript">
+        let isLogin = /*[[${loginUser != null}]]*/ false;
+        let loginUserId = /*[[${loginUser?.userId}]]*/ null;
+        let isAdmin = /*[[${loginUser?.role == 'ADMIN'}]]*/ false;
+    </script>
+    <script th:src="@{/js/ect/qna.js}"></script>
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

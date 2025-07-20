@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 사랑의 진도 - 비밀번호 변경 </title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/main/form.css}">
+    <script th:src="@{/js/main/form.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div th:replace="fragments/commons :: header"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <!-- 로그인 폼 -->
+            <form id="pwChangeForm">
+                <!-- 폼 헤더 -->
+                <h1 class="formHeader">비밀번호 변경</h1>
+
+                <!-- 인풋 -->
+                <div class="inputsWrap">
+                    <input type="password" id="userPW" placeholder="변경할 비밀번호">
+                    <button class="fromBtn" type="button" onclick="pwChange()">비밀번호 변경</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- 푸터 -->
+        <div th:replace="fragments/commons :: footer"></div>
+
+        <!-- 토스트 -->
+        <div th:replace="fragments/commons :: toastItem"></div>
+    </div>
+
+    <!-- 로그인 실패 메시지 -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const loginError = /*[[${loginError}]]*/ null;
+        if (loginError !== null && loginError !== '') { alert(loginError); }
+        /*]]>*/
+    </script>
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

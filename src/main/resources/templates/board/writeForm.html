@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'사랑의 진도 - 게시글' + ${isEdit == true ? '수정' : '작성'}"></title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/board/writeForm.css}">
+
+    <!-- Quill -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+    <style>
+        #quillEditor {
+            height: 500px;
+            background-color: white;
+            font-family: 'Pretendard Variable', sans-serif !important;
+        }
+        .ql-editor {
+            font-family: 'Pretendard Variable', sans-serif !important;
+            font-size: 18px;
+        }
+        .ql-editor h1 { font-size: 32px !important; }
+        .ql-editor h2 { font-size: 24px !important; }
+    </style>
+</head>
+<body style="background-color: #f9f9f9;">
+    <div class="container">
+        <!-- 헤더 -->
+        <div th:replace="fragments/commons :: header"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <form id="postForm"
+                  th:data-post-type="${postType}"
+                  th:data-board-type="${boardType}"
+                  th:data-post-id="${isEdit == true} ? ${post.postId} : ''"
+                  th:data-edit-mode="${isEdit}">
+                <h1 class="editHeader" th:text="${boardName}">게시판 이름</h1>
+
+                <!-- 제목 입력 -->
+                <input type="text" id="postTitle" name="title" placeholder="제목"
+                       th:value="${isEdit == true} ? ${post.postTitle} : ''" />
+
+                <!-- Quill 에디터 -->
+                <div id="quillEditor"></div>
+                <textarea name="content" id="postContent" style="display: none;"></textarea>
+
+                <!-- 하단 -->
+                <div class="subWrap">
+                    <label>
+                        비밀글 <input type="checkbox" id="secretCheckbox" name="secret" />
+                    </label>
+                    <button type="button" class="subBtn" onclick="submitPost()">등록</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- 푸터 -->
+        <div th:replace="fragments/commons :: footer"></div>
+        <div th:replace="fragments/commons :: toastItem"></div>
+    </div>
+
+    <script th:inline="javascript">
+        let quill;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Quill 초기화
+            quill = new Quill('#quillEditor', {
+                theme: 'snow',
+                placeholder: '내용을 입력하세요...',
+                modules: {
+                    toolbar: {
+                        container: [
+                            [{ 'header': [1, 2, false] }],
+                            ['bold', 'italic', 'underline', 'strike'],
+                            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                            [{ 'indent': '-1' }, { 'indent': '+1' }],
+                            [{ 'align': [] }],
+                            ['link', 'image', 'video'],
+                            ['clean']
+                        ],
+                        handlers: {
+                            image: () => {
+                                const input = document.createElement('input');
+                                input.type = 'file';
+                                input.accept = 'image/*';
+                                input.click();
+
+                                input.onchange = async () => {
+                                    const file = input.files[0];
+                                    if (!file) return;
+
+                                    const formData = new FormData();
+                                    formData.append('image', file);
+
+                                    try {
+                                        const res = await fetch('/api/img/upload/board', {
+                                            method: 'POST',
+                                            body: formData
+                                        });
+                                        const result = await res.json();
+                                        if (result.success === 1) {
+                                            const range = quill.getSelection();
+                                            quill.insertEmbed(range.index, 'image', result.url);
+                                            quill.setSelection(range.index + 1);
+                                        } else {
+                                            alert('이미지 업로드 실패: ' + result.message);
+                                        }
+                                    } catch (e) {
+                                        alert('업로드 중 오류 발생');
+                                        console.error(e);
+                                    }
+                                };
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 수정 모드일 경우 기존 내용 반영
+            const isEdit = /*[[${isEdit}]]*/ false;
+            if (isEdit) {
+                const isEdit = /*[[${isEdit}]]*/ false;
+                let content = '';
+                let secret = false;
+
+                if (isEdit) {
+                    content = /*[[${post != null ? post.postContent : ''}]]*/ '';
+                    secret = /*[[${post != null ? post.postSecret : false}]]*/ false;
+                }
+
+                const delta = quill.clipboard.convert(content);
+                quill.setContents(delta, 'silent');
+
+                document.getElementById("secretCheckbox").checked = secret;
+            }
+        });
+
+        function submitPost() {
+            const title = document.getElementById("postTitle").value.trim();
+            const html = quill.root.innerHTML.trim();
+            const secret = document.getElementById("secretCheckbox").checked;
+
+            if (title === "" || html === '' || html === '<p><br></p>') {
+                alert("제목과 내용을 모두 입력해주세요.");
+                return;
+            }
+
+            const form = document.getElementById("postForm");
+            const postType = form.dataset.postType;
+            const boardType = form.dataset.boardType;
+            const isEdit = form.dataset.editMode === "true";
+            const postId = form.dataset.postId;
+
+            const formData = new URLSearchParams();
+            formData.append("title", title);
+            formData.append("content", html);
+            formData.append("secret", secret);
+
+            const url = isEdit
+                ? `/api/board/${postType}/edit/${postId}`
+                : `/api/board/${postType}/write`;
+
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: formData
+            })
+                .then(res => {
+                    if (res.ok) {
+                        window.location.href = `/board/${boardType}`;
+                    } else {
+                        alert("처리에 실패했습니다.");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("오류 발생: " + err.message);
+                });
+        }
+    </script>
+
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

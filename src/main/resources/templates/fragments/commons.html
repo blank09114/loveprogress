@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- 헤더 -->
+<div th:fragment="header">
+    <header id="header">
+        <div class="headerContainer">
+            <!-- 싱단 -->
+            <div class="topHeader">
+                <!-- 로그인 상태 -->
+                <div th:if="${isLoggedIn}">
+                    <span th:if="${loginUser.role == 'ADMIN'}"> <a class="session" th:href="@{/admin/main}"> 관리자 | </a> </span>
+                    <a class="session" th:href="@{/pwChange}"> 비밀번호 변경 | </a>
+                    <a class="session" th:href="@{/logout}" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"> 로그아웃 </a>
+                    <form id="logoutForm" th:action="@{/logout}" method="post" style="display: none;"></form>
+                </div>
+
+                <!-- 비로그인 상태 -->
+                <div th:if="${!isLoggedIn}">
+                    <a class="session" th:href="@{/signup}"> 회원가입 </a>
+                    |
+                    <a class="session" th:href="@{/login}"> 로그인 </a>
+                </div>
+            </div>
+
+            <!-- 하단 -->
+            <div class="bottomHeader">
+                <!-- 하단 좌측 -->
+                <a class="logo"  th:href="@{/}" th:style="|cursor: pointer; background-image: url('@{/img/fragments/logo.png}');|"></a>
+
+                <!-- 하단 우측 -->
+                <div class="headerMenuWarp">
+                    <div class="phainaxaWarp">
+                        <img class="phainaxa" th:src="@{/img/fragments/phainaxa.png}" />
+                    </div>
+
+                    <div class="headerMenuList">
+                        <a class="headerMenuItem" th:href="@{/about/}">About</a>
+                        <a class="headerMenuItem" th:href="@{/board/info}">Info</a>
+                        <a class="headerMenuItem" th:href="@{/board/event}">Event</a>
+                        <a class="headerMenuItem" th:href="@{/booth/}">Booth</a>
+                        <a class="headerMenuItem" th:href="@{/qna/}">QnA</a>
+                        <a class="headerMenuItem" th:href="@{/board/booth}">♥</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 햄버거 메뉴 오픈 -->
+            <button class="hamBtn" style="display: none;" onclick="toggleHamburgur()">☰</button>
+
+            <!-- 햄버거 메뉴 -->
+            <div class="hamContent" style="display: none;">
+                <!-- 상단 메뉴 -->
+                <div class="topHam" th:if="${!isLoggedIn}">
+                    <a class="userBtn" th:href="@{/login}"> 로그인 </a>
+                    <a class="userBtn" th:href="@{/signup}"> 회원가입 </a>
+                    <button class="hamCloseBtn" onclick="toggleHamburgur()"> X </button>
+                </div>
+
+                <div class="topHam" th:if="${isLoggedIn}">
+                    <a class="userBtn" th:href="@{/pwChange}" style="font-size: 13px;"> 비밀번호 변경 </a>
+                    <a class="userBtn" href="#" onclick="event.preventDefault(); document.getElementById('logoutFormHam').submit();"> 로그아웃 </a>
+                    <form id="logoutFormHam" th:action="@{/logout}" method="post" style="display: none;"></form>
+                    <button class="hamCloseBtn" onclick="toggleHamburgur()"> X </button>
+                </div>
+
+                <!-- 하단 메뉴 -->
+                <div class="bottomHam">
+                    <span>
+                        <span style="font-size: 23px; font-weight: 600; color: #428cd2;"
+                              th:text="${isLoggedIn} ? ${loginUser.userId} : '비회원'">닉네임</span> 님 안녕하세요.
+                    </span>
+
+                    <div class="hamPageList">
+                        <a class="hamPageItem" th:href="@{/about/}"> About </a>
+                        <a class="hamPageItem" th:href="@{/board/info}"> Info </a>
+                        <a class="hamPageItem" th:href="@{/board/event}"> Event </a>
+                        <a class="hamPageItem" th:href="@{/booth/}"> Booth </a>
+                        <a class="hamPageItem" th:href="@{/qna/}"> QnA </a>
+                        <a class="hamPageItem" th:href="@{/board/booth}"> ♥ </a>
+                    </div>
+
+                    <div class="phainaxaMobWrap">
+                        <img class="phainaxaMob" th:src="@{/img/fragments/phaiM.png}" />
+                        ♥
+                        <img class="phainaxaMob" th:src="@{/img/fragments/naxaM.png}" />
+                    </div>
+
+                    <div class="snsLinkList">
+                        <a class="snsLink" href="https://x.com/phainaxa_event" target="_blank" rel="noopener noreferrer" th:style="|background-image: url('@{/img/fragments/twt.png}');|"></a>
+                        <a class="snsLink" href="https://takemm.com/event/@phainaxa/timeline" target="_blank" rel="noopener noreferrer" th:style="|background-image: url('@{/img/fragments/tmm.png}');|"></a>
+                        <div class="snsLink" th:style="|background-image: url('@{/img/fragments/link.png}');|" onclick="copyLink()"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="scrollTop" style="display: none;" onclick="window.scrollTop()">↑</button>
+    </header>
+</div>
+
+<!-- 푸터 -->
+<div th:fragment="footer">
+    <footer id="footer">
+        <div class="footerTop">
+            <div class="footerContainer">
+                <p class="onlyTitle"> 파이낙사 온리전 :: 사랑의 진도 ~우리 반이 제일 느려!~ </p>
+
+                <div class="snsLinkList">
+                    <a class="snsLink" href="https://x.com/phainaxa_event" target="_blank" rel="noopener noreferrer" th:style="|background-image: url('@{/img/fragments/twt.png}');|"></a>
+                    <a class="snsLink" href="https://takemm.com/event/@phainaxa/timeline" target="_blank" rel="noopener noreferrer" th:style="|background-image: url('@{/img/fragments/tmm.png}');|"></a>
+                    <div class="snsLink" th:style="|background-image: url('@{/img/fragments/link.png}');|" onclick="copyLink()"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footerBottom">
+            <p class="siteInfo">
+                이 행사는 오직 2차 창작 교류를 위한 행사로, 비공식/비영리 행위임을 밝힙니다.
+                <br><br>
+                대표자명: 교무처장 | TWT: @phainaxa_event | 이메일: admin@phainaxa.com <br>
+                release on 2025. 08. 01. <br>
+                Copyright © 2025 깨달음의 나무 정원 교무처장 All right reserved.
+            </p>
+        </div>
+    </footer>
+</div>
+
+<!-- 관리자 헤더 -->
+<div th:fragment="nav">
+    <nav>
+        <div class="navContainer">
+            <a class="navMenu" th:href="@{/admin/main}"> Main </a>
+            <a class="navMenu" th:href="@{/admin/board}"> Board </a>
+            <a class="navMenu" th:href="@{/admin/booth}"> Booth </a>
+            <a class="navMenu" th:href="@{/admin/qna}"> QnA </a>
+            <a class="navMenu" th:href="@{/admin/user}"> User </a>
+            <a class="navMenu" th:href="@{/}"> 관리자 나가기 </a>
+        </div>
+    </nav>
+</div>
+
+<!-- 토스트 -->
+<div th:fragment="toastItem">
+    <div class="toastWrap">
+        <div class="toast">
+            <span class="toastMessage">토스트</span>
+            <button class="toastBtn" onclick="hideToast()"> × </button>
+        </div>
+    </div>
+</div>
+</html>

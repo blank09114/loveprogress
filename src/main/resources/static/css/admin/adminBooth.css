@@ -1,0 +1,121 @@
+/* 공통 서식 */
+section
+{
+    width: 1280px;
+    margin: 0 auto;
+    padding: 50px 0 0 0 !important;
+}
+section * { color: #333; }
+.contentHeader
+{
+    width: 100%;
+    height: 40px;
+
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+    line-height: 40px;
+}
+
+
+
+/* 부스 리스트 */
+.boothListWrap
+{
+    max-height: 400px;
+    overflow-y: auto;
+}
+.boothList
+{
+    width: 100%;
+    border-collapse: collapse;
+}
+tr { border-bottom: 1px solid #333; }
+td
+{
+    min-height: 30px;
+
+    font-size: 16px;
+    text-align: center;
+}
+.info {border-bottom: 2px solid #333; }
+img
+{
+    width: 110px;
+    height: 60px;
+    margin: 10px 0;
+    vertical-align: middle
+}
+.del
+{
+    width: 50px;
+    height: 25px;
+    border-radius: 12px;
+
+    border: none;
+    background-color: #333;
+
+    font-size: 16px;
+    text-align: center;
+    line-height: 25px;
+    color: white;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+}
+.del:hover { background-color: #ccc; }
+.del:first-child { margin-bottom: 10px; }
+
+
+
+/* 부스 등록 */
+#subBooth
+{
+    width: 100%;
+    margin-top: 50px;
+}
+.inputWrapRow
+{
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+}
+.inputWrap { width: 50%; }
+.inputWrap p
+{
+    width: 100%;
+    height: 30px;
+
+    font-size: 16px;
+    line-height: 30px;
+}
+.inputWrap:last-child { margin: 0; }
+input[type=text]
+{
+    width: 90%;
+    height: 25px;
+    padding-left: 5px;
+    margin-bottom: 5px;
+}
+input[type=text]:last-child { margin: 0; }
+.sub
+{
+    width: 100px;
+    height: 25px;
+    margin-top: 30px;
+    border-radius: 12px;
+
+    border: none;
+    background-color: #333;
+
+    font-size: 16px;
+    text-align: center;
+    line-height: 25px;
+    color: white;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+}
+.sub:hover { background-color: #ccc; }

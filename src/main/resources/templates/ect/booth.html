@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 사랑의 진도 - 부스 </title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/ect/booth.css}">
+    <script th:src="@{/js/ect/booth.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div th:replace="fragments/commons :: header"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <!-- 섹션 헤더 -->
+            <div class="sectionHeader">
+                <h1 class="sectionTitle">Booth List</h1>
+
+                <!-- 태그 목록 -->
+                <ul class="tagList">
+                    <li class="tagItem"> <a class="tag tot">#전체보기</a> </li>
+                    <li class="tagItem"> <a class="tag all">#일반</a> </li>
+                    <li class="tagItem"> <a class="tag adult">#성인</a> </li>
+                    <li class="tagItem"> <a class="tag paint">#그림 회지</a> </li>
+                    <li class="tagItem"> <a class="tag write">#글 회지</a> </li>
+                    <li class="tagItem"> <a class="tag fancy">#팬시 굿즈</a> </li>
+                    <li class="tagItem"> <a class="tag craft">#수공예품</a> </li>
+                    <li class="tagItem"> <a class="tag free">#무료나눔</a> </li>
+                </ul>
+            </div>
+
+            <!-- 섹션 콘텐츠 -->
+            <div class="sectionContent"> <ul class="boothList" id="boothList"></ul> </div>
+        </section>
+
+        <!-- 푸터 -->
+        <div th:replace="fragments/commons :: footer"></div>
+
+        <!-- 토스트 -->
+        <div th:replace="fragments/commons :: toastItem"></div>
+    </div>
+
+    <!-- 호버 이미지(임시) -->
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function ()
+        {
+            const boothImgs = document.querySelectorAll(".boothImg");
+
+            boothImgs.forEach(img =>
+            {
+                const defaultImg = img.dataset.default;
+                const hoverImg = img.dataset.hover;
+
+                img.addEventListener("mouseenter", () => { img.style.backgroundImage = `url(${hoverImg})`; });
+                img.addEventListener("mouseleave", () => { img.style.backgroundImage = `url(${defaultImg})`; });
+            });
+        });
+    </script>
+
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

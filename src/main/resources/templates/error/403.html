@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 접근 거부됨 </title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <style>
+        section
+        {
+            width: 1280px;
+            margin: auto;
+        }
+        .sectionContainer
+        {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        h1
+        {
+            width: 100%;
+            height: 50px;
+
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 50px;
+            color: #333;
+        }
+        .toMain
+        {
+            width: 200px;
+            height: 40px;
+            border-radius: 12px;
+
+            border: none;
+            background-color: #428cd2;
+
+            font-size: 20px;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+
+            cursor: pointer;
+
+            transition: background-color 0.3s ease;
+        }
+        .toMain:hover { background-color: #69e8bd; }
+
+        /*== 모바일 ==*/
+        @media(max-width: 768px) { section { width: 90%; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div th:replace="fragments/commons :: header"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <div class="sectionContainer">
+                <h1>🚫접근 권한이 없습니다.</h1>
+                <a class="toMain" th:href="@{/}">메인으로 돌아가기</a>
+            </div>
+        </section>
+
+        <!-- 푸터 -->
+        <div th:replace="fragments/commons :: footer"></div>
+
+        <!-- 토스트 -->
+        <div th:replace="fragments/commons :: toastItem"></div>
+    </div>
+
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

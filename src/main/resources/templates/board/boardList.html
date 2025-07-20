@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'사랑의 진도 - ' + ${boardName}"></title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/board/boardList.css}">
+</head>
+<body th:attr="data-post-type=${postType}">
+    <div class="container">
+        <!-- 헤더 -->
+        <div th:replace="fragments/commons :: header"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <!-- 섹션 헤더 -->
+            <h1 class="sectionHeader" th:text="${boardName}"></h1>
+
+            <!-- 글 목록 -->
+            <div class="tableWrap">
+                <table>
+                    <!-- 타이틀 행 -->
+                    <tr>
+                        <td class="td-no"> No </td>
+                        <td> 제목 </td>
+                        <td class="td-author"> 작성자 </td>
+                        <td> 작성시각 </td>
+                    </tr>
+
+                    <!-- 공지글 행 -->
+                    <tr class="not" th:if="${noticePost != null}">
+                        <td>📢</td>
+                        <td class="td-left">
+                            <a th:href="@{'/board/' + ${noticePost.postType?.toLowerCase()} + '/' + ${noticePost.postId}}"
+                               class="postLink"
+                               th:text="${noticePost.postSecret} ? '🔒 ' + ${noticePost.postTitle} : ${noticePost.postTitle}"></a>
+                        </td>
+                        <td th:text="${noticePost.userRole == 'ADMIN' ? '교무처장' : noticePost.userId}">교무처장</td>
+                        <td class="td-time" th:text="${#temporals.format(noticePost.postDate, 'yyyy-MM-dd')}">yyyy-mm-dd</td>
+                    </tr>
+
+                    <!-- 공지 없을 경우 -->
+                    <tr class="not" th:if="${noticePost == null}">
+                        <td>📢</td>
+                        <td colspan="3" style="text-align: center;">공지가 없습니다.</td>
+                    </tr>
+
+                    <!-- 게시글 행 -->
+                    <tbody id="postListBody"></tbody>
+                </table>
+            </div>
+
+
+            <!-- 하단 메뉴 -->
+            <div class="bottomMenu">
+                <!-- 페이지네이션 -->
+                <ul class="pages" id="pagination"></ul>
+
+                <!-- 글쓰기 버튼 -->
+                <a class="writeBtn"
+                   th:if="${boardName == '♥' or (boardType != 'booth' and #authorization.expression('hasRole(''ROLE_ADMIN'')'))}"
+                   th:href="@{'/board/' + ${boardType} + '/write'}">
+                    글쓰기
+                </a>
+            </div>
+        </section>
+
+        <!-- 푸터 -->
+        <div th:replace="fragments/commons :: footer"></div>
+
+        <!-- 토스트 -->
+        <div th:replace="fragments/commons :: toastItem"></div>
+    </div>
+
+    <script th:src="@{/js/board/boardList.js}"></script>
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

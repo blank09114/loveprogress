@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 관리자 - QnA </title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminQna.css}">
+    <script>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- 네비게이션 -->
+        <div th:replace="fragments/commons :: nav"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <!-- 목록 -->
+            <div class="qnalist">
+                <h2 class="contentHeader">질문 목록</h2>
+                <div class="tableWrap">
+                    <!-- 표 -->
+                    <table>
+                        <!-- 정보 -->
+                        <thead>
+                            <tr class="info">
+                                <td style="width: 5%;"> 순서 </td>
+                                <td style="width: 15%;"> 작성자 </td>
+                                <td style="width: 35%;"> 내용 </td>
+                                <td style="width: 15%;"> 등록일 </td>
+                                <td style="width: 10%;"> 공개 여부 </td>
+                                <td style="width: 10%;"> 답변 상태 </td>
+                                <td style="width: 10%;"> 기타 </td>
+                            </tr>
+                        </thead>
+
+                        <!-- 질문 목록 -->
+                        <tbody id="adminQnaListBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 답변 -->
+            <form id="answer">
+                <h2 class="contentHeader">답변하기</h2>
+
+                <!-- 질문 내용 -->
+                <div class="question">
+                    <!-- 정보 -->
+                    <div class="queInfo">
+                        <p class="queInfoTitle"> 번호 </p>
+                        <p></p>
+                        <p class="queInfoTitle"> ID </p>
+                        <p></p>
+                    </div>
+
+                    <p class="questionContent"></p>
+                </div>
+
+                <!-- 답변 -->
+                <textarea id="answerContent" placeholder="답변 내용을 입력해주세요."></textarea>
+
+                <!-- 버튼 -->
+                <div class="btnWrap"> <button type="button" class="btn" onclick="subAnswer()">답변하기</button> </div>
+            </form>
+        </section>
+    </div>
+
+    <script th:src="@{/js/admin/adminQna.js}"></script>
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

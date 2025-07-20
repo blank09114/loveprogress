@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 사랑의 진도 - 어바웃 </title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/about/about.css}">
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div th:replace="fragments/commons :: header"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <!-- 섹션 헤더 -->
+            <div class="sectionHeader">
+                <h1 class="sectionTitle"> 파이낙사 온리전 :: 사랑의 진도 </h1>
+                <div class="line">◆　◆　◆</div>
+            </div>
+
+            <!-- 섹션 콘텐츠 -->
+            <div class="sectionContent">
+                <div th:utext="${content}"> <!-- 서버에 저장된 글이 불러와짐 --> </div>
+                <div class="editBtnWarp" th:if="${loginUser != null and loginUser.role == 'ADMIN'}">
+                    <a class="editBtn" th:href="@{/about/edit}">수정</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 푸터 -->
+        <div th:replace="fragments/commons :: footer"></div>
+
+        <!-- 토스트 -->
+        <div th:replace="fragments/commons :: toastItem"></div>
+    </div>
+
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

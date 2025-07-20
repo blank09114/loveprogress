@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 사랑의 진도 - 로그인 </title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/main/form.css}">
+    <script th:src="@{/js/main/form.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div th:replace="fragments/commons :: header"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <!-- 로그인 폼 -->
+            <form id="loginForm" th:action="@{/login/request}" method="post">
+                <!-- 폼 헤더 -->
+                <h1 class="formHeader">로그인</h1>
+
+                <!-- 인풋 -->
+                <div class="inputsWrap">
+                    <input type="text" id="userID" name="userId" placeholder="ID">
+                    <input type="password" id="userPW" name="userPw" placeholder="PW">
+                    <span style="color: #757575; font-size: 11px;">비밀번호 분실 시 QnA에 비밀글로 문의를 남겨주세요.</span>
+                    <label class="label"><input type="checkbox" id="saveId"> ID 저장</label>
+
+                    <!-- 로그인 -->
+                    <button class="fromBtn" type="button" onclick="login()">로그인</button>
+                </div>
+
+                <!-- 메뉴 -->
+                <div class="formMenuList"> <a class="formMenuItem" th:href="@{/signup}">회원가입</a> </div>
+            </form>
+        </section>
+
+        <!-- 푸터 -->
+        <div th:replace="fragments/commons :: footer"></div>
+
+        <!-- 토스트 -->
+        <div th:replace="fragments/commons :: toastItem"></div>
+    </div>
+
+    <!-- 로그인 실패 메시지 -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const loginError = /*[[${loginError}]]*/ null;
+        if (loginError !== null && loginError !== '') { alert(loginError); }
+        /*]]>*/
+    </script>
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

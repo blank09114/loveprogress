@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="packages.loveprogress.mapper.BoothMapper">
+    <!-- 전체 부스 조회 -->
+    <select id="boothListAll" resultType="packages.loveprogress.dto.BoothDTO">
+        SELECT
+            b.booth_id AS boothId,
+            b.booth_name AS name,
+            b.booth_img AS img,
+            b.booth_hover_img AS hoverImg,
+            b.booth_pw AS pw,
+            b.booth_owner AS owner,
+            b.booth_owner_link AS ownerLink,
+            b.booth_user1 AS user1,
+            b.booth_user1_link AS user1Link,
+            b.booth_user2 AS user2,
+            b.booth_user2_link AS user2Link,
+            b.booth_user3 AS user3,
+            b.booth_user3_link AS user3Link,
+
+        SUBSTRING_INDEX(tags.tag_list, ',', 1) AS tag1,
+
+        CASE WHEN LENGTH(tags.tag_list) - LENGTH(REPLACE(tags.tag_list, ',', '')) >= 1
+        THEN SUBSTRING_INDEX(SUBSTRING_INDEX(tags.tag_list, ',', 2), ',', -1)
+        ELSE NULL END AS tag2,
+
+        CASE WHEN LENGTH(tags.tag_list) - LENGTH(REPLACE(tags.tag_list, ',', '')) >= 2
+        THEN SUBSTRING_INDEX(SUBSTRING_INDEX(tags.tag_list, ',', 3), ',', -1)
+        ELSE NULL END AS tag3,
+
+        CASE WHEN LENGTH(tags.tag_list) - LENGTH(REPLACE(tags.tag_list, ',', '')) >= 3
+        THEN SUBSTRING_INDEX(SUBSTRING_INDEX(tags.tag_list, ',', 4), ',', -1)
+        ELSE NULL END AS tag4,
+
+        CASE WHEN LENGTH(tags.tag_list) - LENGTH(REPLACE(tags.tag_list, ',', '')) >= 4
+        THEN SUBSTRING_INDEX(SUBSTRING_INDEX(tags.tag_list, ',', 5), ',', -1)
+        ELSE NULL END AS tag5,
+
+        CASE WHEN LENGTH(tags.tag_list) - LENGTH(REPLACE(tags.tag_list, ',', '')) >= 5
+        THEN SUBSTRING_INDEX(SUBSTRING_INDEX(tags.tag_list, ',', 6), ',', -1)
+        ELSE NULL END AS tag6
+
+
+        FROM booth_tbl b
+
+        LEFT JOIN
+        (
+            SELECT
+            m.booth_id,
+            GROUP_CONCAT(t.tag_name ORDER BY t.tag_id) AS tag_list
+            FROM booth_tag_map_tbl m
+            JOIN booth_tag_tbl t ON m.tag_id = t.tag_id
+            GROUP BY m.booth_id
+        )
+        tags ON b.booth_id = tags.booth_id
+    </select>
+
+    <!-- 태그 필터링 -->
+    <select id="boothListByTag" resultType="packages.loveprogress.dto.BoothDTO">
+        SELECT
+            b.booth_id AS boothId,
+            b.booth_name AS name,
+            b.booth_img AS img,
+            b.booth_hover_img AS hoverImg,
+            b.booth_pw AS pw,
+            b.booth_owner AS owner,
+            b.booth_owner_link AS ownerLink,
+            b.booth_user1 AS user1,
+            b.booth_user1_link AS user1Link,
+            b.booth_user2 AS user2,
+            b.booth_user2_link AS user2Link,
+            b.booth_user3 AS user3,
+            b.booth_user3_link AS user3Link,
+
+        SUBSTRING_INDEX(tags.tag_list, ',', 1) AS tag1,
+
+        CASE WHEN LENGTH(tags.tag_list) - LENGTH(REPLACE(tags.tag_list, ',', '')) >= 1
+        THEN SUBSTRING_INDEX(SUBSTRING_INDEX(tags.tag_list, ',', 2), ',', -1)
+        ELSE NULL END AS tag2,
+
+        CASE WHEN LENGTH(tags.tag_list) - LENGTH(REPLACE(tags.tag_list, ',', '')) >= 2
+        THEN SUBSTRING_INDEX(SUBSTRING_INDEX(tags.tag_list, ',', 3), ',', -1)
+        ELSE NULL END AS tag3,
+
+        CASE WHEN LENGTH(tags.tag_list) - LENGTH(REPLACE(tags.tag_list, ',', '')) >= 3
+        THEN SUBSTRING_INDEX(SUBSTRING_INDEX(tags.tag_list, ',', 4), ',', -1)
+        ELSE NULL END AS tag4,
+
+        CASE WHEN LENGTH(tags.tag_list) - LENGTH(REPLACE(tags.tag_list, ',', '')) >= 4
+        THEN SUBSTRING_INDEX(SUBSTRING_INDEX(tags.tag_list, ',', 5), ',', -1)
+        ELSE NULL END AS tag5,
+
+        CASE WHEN LENGTH(tags.tag_list) - LENGTH(REPLACE(tags.tag_list, ',', '')) >= 5
+        THEN SUBSTRING_INDEX(SUBSTRING_INDEX(tags.tag_list, ',', 6), ',', -1)
+        ELSE NULL END AS tag6
+
+        FROM booth_tbl b
+
+        LEFT JOIN
+        (
+            SELECT
+                m.booth_id,
+                GROUP_CONCAT(t.tag_name ORDER BY t.tag_id) AS tag_list
+                FROM booth_tag_map_tbl m
+                JOIN booth_tag_tbl t ON m.tag_id = t.tag_id
+                GROUP BY m.booth_id
+        )
+        tags ON b.booth_id = tags.booth_id
+
+        WHERE b.booth_id IN
+        (
+            SELECT m.booth_id
+                FROM booth_tag_map_tbl m
+                JOIN booth_tag_tbl t ON m.tag_id = t.tag_id
+                WHERE t.tag_name IN
+                <foreach item="item" collection="tag" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+                GROUP BY m.booth_id
+                HAVING COUNT(DISTINCT t.tag_name) = #{tagCount}
+        )
+    </select>
+</mapper>

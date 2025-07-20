@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 사랑의 진도 - 회원가입 </title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/main/form.css}">
+    <script th:src="@{/js/main/form.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div th:replace="fragments/commons :: header"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <!-- 회원가입 폼 -->
+            <form id="joinForm" method="post" th:action="@{/signup/request}">
+                <!-- 폼 헤더 -->
+                <h1 class="formHeader">회원가입</h1>
+
+                <!-- 인풋 -->
+                <div class="inputsWrap">
+                    <!-- ID -->
+                    <span> <span style="color: #f95a00;">*</span> ID </span>
+                    <div class="inputField">
+                        <input type="text" id="idField" name="userId" oninput="idValidation()" placeholder="영문 혹은 영문+숫자">
+                        <button class="idCheck" type="button" onclick="idDupCheck()">중복 확인</button>
+                    </div>
+                    <span id="idOK" style="color: #428cd2;"></span>
+                    <span id="idWarning" style="color: #f95a00;"></span>
+                    <br>
+
+                    <!-- PW -->
+                    <span> <span style="color: #f95a00;">*</span> PW </span>
+                    <input type="password" id="pwField" name="userPw" oninput="pwValidation()" placeholder="영문+숫자">
+                    <label class="label"><input type="checkbox" onclick="togglePw()"> 비밀번호 보기</label>
+                    <span id="pwWarning" style="color: #f95a00;"></span>
+                    <br>
+
+                    <!-- 이메일 -->
+                    <span> <span style="color: #f95a00;">*</span> 이메일 </span>
+                    <div class="inputField">
+                        <input type="hidden" id="emailFull" name="userEmail">
+                        <input type="text" id="mailField" oninput="emailValidation()">
+                        @
+                        <input type="text" id="domainField" readonly oninput="emailValidation()">
+                        <select id="domainSelect" onchange="handleDomain()">
+                            <option value="none"> 선택 </option>
+                            <option value="gmail">gmail.com</option>
+                            <option value="naver">naver.com</option>
+                            <option value="kakao">kakao.com</option>
+                            <option value="costum">직접 입력</option>
+                        </select>
+                    </div>
+                    <span id="mailWarning" style="color: #f95a00;"></span>
+                    <br>
+
+                    <!-- 부스 이름 -->
+                    부스 이름
+                    <input type="text" id="booth" name="userBoothName" placeholder="부스 신청 예정이 없는 경우 비워주세요.">
+                    <br>
+
+                    <!-- 휴대폰 번호 끝자리 -->
+                    <span> 전화번호 끝자리 </span>
+                    <span style="color: #757575; font-size: 11px;">부스 신청 시 입력한 전화번호 뒤 4자리를 정확히 입력해주세요.</span>
+                    <input type="text" id="phone" name="userPhone" oninput="phoneValidation()">
+                    <span id="phoneWarning" style="color: #f95a00;"></span>
+                    <br>
+
+                    <!-- 로그인 -->
+                    <button class="fromBtn" type="button" onclick="signUp()">회원가입</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- 푸터 -->
+        <div th:replace="fragments/commons :: footer"></div>
+
+        <!-- 토스트 -->
+        <div th:replace="fragments/commons :: toastItem"></div>
+    </div>
+
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>

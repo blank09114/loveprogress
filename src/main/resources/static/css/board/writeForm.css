@@ -1,0 +1,103 @@
+/* 공통 서식 */
+section
+{
+    width: 1280px;
+    height: auto;
+    margin: auto;
+    margin-top: 190px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 12px;
+
+    background-color: white;
+}
+.editHeader, input[type="text"], textarea, .subWrap { width: 100%; }
+
+
+
+/* 수정 폼 */
+.editHeader
+{
+    height: 35px;
+    padding-bottom: 5px;
+
+    border-bottom: 1px solid #333;
+
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 35px;
+    color: #333;
+}
+input[type="text"], textarea
+{
+    height: 30px;
+    margin: 20px 0 10px 0;
+    padding: 10px;
+
+    outline: none;
+    border: 1px solid #ccc;
+}
+textarea { min-height: 300px; margin: 0; }
+input[type="text"]:hover, input[type="text"]:focus, textarea:hover, textarea:focus
+{ border: 1px solid #428cde; }
+
+
+
+/* 하단 */
+.subWrap
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+/* 비밀글 체크 */
+label
+{
+    margin: 10px 5px 5px 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+/* 버튼 */
+.subBtn
+{
+    width: 80px;
+    height: 30px;
+    border-radius: 20px;
+
+    border: none;
+    background-color: #333;
+
+    font-size: 16px;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+}
+.subBtn:hover
+{
+    background-color: #ccc;
+    color: #333;
+}
+
+
+
+/*== 모바일 ==*/
+@media(max-width: 768px)
+{
+    section
+    {
+        width: 90%;
+        margin-top: 20px;
+    }
+}

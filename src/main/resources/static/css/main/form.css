@@ -1,0 +1,149 @@
+/* 폼 */
+section
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+form
+{
+    width: 600px;
+    max-width: 90%;
+    height: auto;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+
+    border: 1px solid #428cd2;
+}
+.formHeader
+{
+    width: 100%;
+    height: 30px;
+    border-radius: 10px 10px 0 0;
+    box-sizing: border-box;
+
+    background-color: #428cd2;
+
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}
+
+/* 버튼 공통 서식 */
+section button
+{
+    height: 30px;
+    border-radius: 8px;
+
+    border: none;
+    background-color: #428cd2;
+
+    font-size: 14px;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+}
+section button:hover { background-color: #69e8bd; }
+
+
+
+/* 입력 요소 */
+.inputsWrap
+{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+input[type="text"], input[type="password"], select
+{
+    width: 100%;
+    height: 30px;
+    padding-left: 5px;
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    outline: 0;
+    border: 1px solid #ccc;
+
+    font-size: 14px;
+}
+input[type="text"]:hover, input[type="password"]:hover, select:hover,
+input[type="text"]:focus, input[type="password"]:focus, select:focus
+{ border: 1px solid #428cd2; }
+.label
+{
+    width: 100%;
+    height: 20px;
+
+    font-size: 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    cursor: pointer;
+}
+
+/* 특수 */
+.inputField
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+#idField { width: 75%; }
+#mailField { width: 50%; } 
+#domainField, #domainSelect, .idCheck { width: 25%; }
+.fromBtn { width: 100%; }
+
+
+
+/* 페이지 메뉴 */
+.formMenuList
+{
+    width: 100%;
+
+    border-top: 1px solid #428cd2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.formMenuItem
+{
+    width: auto;
+    height: 20px;
+    padding: 5px 0;
+
+    font-size: 14px;
+    text-align: center;
+    line-height: 20px;
+    color: #888;
+
+    cursor: pointer;
+}
+.formMenuItem:hover { color: #428cd2; }
+
+
+
+/* == 모바일 == */
+@media(max-width: 768px)
+{
+    .inputField { flex-direction: column; }
+    #idField, #mailField, #domainField, #domainSelect, .idCheck { width: 100%; }
+    .alpha { display: none; }
+}

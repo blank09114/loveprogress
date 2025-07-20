@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 파이낙사 온리전 :: 사랑의 진도 </title>
+    <link rel="stylesheet" th:href="@{/css/fragments/commons.css}">
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div th:replace="fragments/commons :: header"></div>
+
+        <!-- 섹션 -->
+        <section>
+            <!-- 슬라이드 배너 -->
+            <div class="topBanner">
+                <div class="bannerItem">
+                    <!-- 배너 목록 -->
+                    <div class="bannerTrack">
+                        <div class="bannerImg"
+                             th:each="b : ${banners}"
+                             th:if="${b.img != null}"
+                             th:attr="style=|background-image: url('/uploads/${b.img}'); background-color: #${b.color}|, data-color=${b.color}, data-url=${b.url}">
+                        </div>
+                    </div>
+
+                    <!-- 버튼 목록 -->
+                    <button class="sildeBtn" id="prevBtn" onclick="moveSlide(-1)">〈</button>
+                    <button class="sildeBtn" id="nextBtn" onclick="moveSlide(1)">〉</button>
+                    <div class="bottomMenu" id="dotMenu"></div>
+                </div>
+            </div>
+
+            <!-- 고정 배너 -->
+            <a class="banner" th:href="@{/qna/}" th:style="'background-image: url(' + @{/img/main/subBanner.png} + ')'"></a>
+
+            <!-- 공지사항 메뉴 -->
+            <div class="noticeMenu">
+                <h2 class="noticeMenuHeader"> 공지사항 </h2>
+
+                <!-- 메뉴 목록 -->
+                <div class="noticeMenuList">
+                    <a class="noticeMenuItem"
+                       th:attr="href=${mainLinks[0].url != null} ? ${mainLinks[0].url} : 'javascript:void(0)'"
+                       th:style="'background-image: url(' + @{/img/main/schedule.png} + ')'"></a>
+
+                    <a class="noticeMenuItem"
+                       th:attr="href=${mainLinks[1].url != null} ? ${mainLinks[1].url} : 'javascript:void(0)'"
+                       th:style="'background-image: url(' + @{/img/main/visitorGuide.png} + ')'"></a>
+
+                    <a class="noticeMenuItem"
+                       th:attr="href=${mainLinks[2].url != null} ? ${mainLinks[2].url} : 'javascript:void(0)'"
+                       th:style="'background-image: url(' + @{/img/main/bootherInfo.png} + ')'"></a>
+
+                    <a class="noticeMenuItem"
+                       th:attr="href=${mainLinks[3].url != null} ? ${mainLinks[3].url} : 'javascript:void(0)'"
+                       th:style="'background-image: url(' + @{/img/main/boothHi.png} + ')'"></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 푸터 -->
+        <div th:replace="fragments/commons :: footer"></div>
+
+        <!-- 토스트 -->
+        <div th:replace="fragments/commons :: toastItem"></div>
+    </div>
+
+    <script th:src="@{/js/main/main.js}"></script>
+    <script th:src="@{/js/fragments/commons.js}"></script>
+</body>
+</html>
