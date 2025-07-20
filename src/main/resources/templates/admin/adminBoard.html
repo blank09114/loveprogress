@@ -116,13 +116,17 @@
             })
             .then(res =>
             {
-                if (res.redirected) { window.location.href = res.url; }
-                else { alert("공지 등록 실패"); }
+                if (!res.ok)
+                {
+                    alert("공지 등록 실패");
+                    return;
+                }
+                window.location.reload();
             })
             .catch(err =>
             {
                 console.error(err);
-                alert("에러 발생");
+                alert("에러 발생 (네트워크 또는 서버 문제)");
             });
         }
     </script>

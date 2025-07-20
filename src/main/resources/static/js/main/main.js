@@ -44,7 +44,7 @@ function autoHeights()
     if (bannerItem)
     {
         const width = bannerItem.offsetWidth;
-        bannerItem.style.height = `${width * (45 / 128)}px`;
+        bannerItem.style.height = `${width * (61 / 640)}px`;
     }
 
     if (noticeMenu)
