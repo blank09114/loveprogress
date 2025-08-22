@@ -6,7 +6,7 @@
 
 ## 🌐 배포 주소
 
-🔗 [https://loveprogress.example.com](https://phainaxa.com/)
+🔗 [https://phainaxa.com/](https://phainaxa.com/)
 
 ---
 
