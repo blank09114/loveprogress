@@ -38,7 +38,7 @@
             </form>
 
             <!-- 이벤트 -->
-            <form id="eve" class="notForm">
+            <form id="event" class="notForm">
                 <h2 class="listName">이벤트</h2>
                 <div class="listWrap">
                     <p class="now">
@@ -100,7 +100,7 @@
                 return;
             }
 
-            // 폼 타입 가져오기 (info, eve, booth)
+            // 폼 타입 가져오기 (info, event, booth)
             const type = form.id.toUpperCase(); // ex: "INFO"
             const postId = checked.value;
 

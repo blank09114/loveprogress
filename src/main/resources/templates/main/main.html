@@ -42,19 +42,19 @@
                 <!-- 메뉴 목록 -->
                 <div class="noticeMenuList">
                     <a class="noticeMenuItem"
-                       th:attr="href=${mainLinks[0].url != null} ? ${mainLinks[0].url} : 'javascript:void(0)'"
+                       th:attr="data-url=${mainLinks[0].url}"
                        th:style="'background-image: url(' + @{/img/main/schedule.png} + ')'"></a>
 
                     <a class="noticeMenuItem"
-                       th:attr="href=${mainLinks[1].url != null} ? ${mainLinks[1].url} : 'javascript:void(0)'"
+                       th:attr="data-url=${mainLinks[1].url}"
                        th:style="'background-image: url(' + @{/img/main/visitorGuide.png} + ')'"></a>
 
                     <a class="noticeMenuItem"
-                       th:attr="href=${mainLinks[2].url != null} ? ${mainLinks[2].url} : 'javascript:void(0)'"
+                       th:attr="data-url=${mainLinks[2].url}"
                        th:style="'background-image: url(' + @{/img/main/bootherInfo.png} + ')'"></a>
 
                     <a class="noticeMenuItem"
-                       th:attr="href=${mainLinks[3].url != null} ? ${mainLinks[3].url} : 'javascript:void(0)'"
+                       th:attr="data-url=${mainLinks[3].url}"
                        th:style="'background-image: url(' + @{/img/main/boothHi.png} + ')'"></a>
                 </div>
             </div>

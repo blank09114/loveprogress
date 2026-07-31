@@ -71,9 +71,6 @@ section
     font-family: 'Pretendard Variable', sans-serif !important;
     line-height: 1.5 !important;
 }
-.sectionContent h1 { font-size: 32px !important; }
-.sectionContent h2 { font-size: 24px !important; }
-.sectionContent p { font-size: 18px !important; }
 .editBtnWarp
 {
     width: 100%;
@@ -84,10 +81,23 @@ section
 }
 
 /* Quill 스타일 */
+.sectionContent h1 { font-size: 32px !important; }
+.sectionContent h2 { font-size: 24px !important; }
+.sectionContent p { font-size: 18px !important; }
+.sectionContent p a
+{
+    width: 100%;
+    height: auto;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+.sectionContent strong, .sectionContent b { font-weight: bold !important; }
+
 .ql-align-left   { text-align: left; }
 .ql-align-center { text-align: center; }
 .ql-align-right  { text-align: right; }
 ul, ol { padding-left: 3em; }
+
 .ql-indent-1 { padding-left: 2em; }
 .ql-indent-2 { padding-left: 4em; }
 .ql-indent-3 { padding-left: 6em; }

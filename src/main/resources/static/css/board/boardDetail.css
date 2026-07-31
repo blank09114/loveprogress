@@ -49,6 +49,14 @@ section * { color: #333; }
 .boardContent h1 { font-size: 32px !important; }
 .boardContent h2 { font-size: 24px !important; }
 .boardContent p { font-size: 18px !important; }
+.boardContent p a
+{
+    width: 100%;
+    height: auto;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+.boardContent strong, .boardContent b { font-weight: bold !important; }
 
 /* Quill 스타일 */
 .ql-align-left   { text-align: left; }
@@ -353,4 +361,13 @@ textarea:hover, textarea:focus
     }
     textarea, .comBtn { width: 100%; }
     .comBtn { height: 30px; }
+
+    /* 이미지 반응형 대응 */
+    .boardContent img
+    {
+        max-width: 80% !important;
+        height: auto !important;
+        display: block !important;
+        margin: 0 auto;
+    }
 }

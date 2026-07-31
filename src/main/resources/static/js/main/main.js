@@ -44,7 +44,7 @@ function autoHeights()
     if (bannerItem)
     {
         const width = bannerItem.offsetWidth;
-        bannerItem.style.height = `${width * (61 / 640)}px`;
+        bannerItem.style.height = `${width * (45 / 128)}px`;
     }
 
     if (noticeMenu)
@@ -94,6 +94,16 @@ window.addEventListener("DOMContentLoaded", () =>
 
     // 자동 슬라이드
     setInterval(() => { moveSlide(1); }, 3000);
+
+    // 공지사항 메뉴 클릭 이벤트
+    document.querySelectorAll(".noticeMenuItem").forEach(item =>
+    {
+        item.addEventListener("click", (e) =>
+        {
+            const url = item.dataset.url;
+            if (url) { location.href = url; } else { showToast("잠시 기다려주세요."); }
+        });
+    });
 });
 
 window.addEventListener("resize", autoHeights);

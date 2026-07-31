@@ -100,4 +100,11 @@ label
         width: 90%;
         margin-top: 20px;
     }
+    .ql-editor img
+    {
+        max-width: 80% !important;
+        height: auto !important;
+        display: block !important;
+        margin: 0 auto;
+    }
 }
